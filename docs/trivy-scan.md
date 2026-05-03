@@ -16,4 +16,4 @@ bkimminich/juice-shop
 trivy image --severity HIGH,CRITICAL bkimminich/juice-shop
 
 
-# ✅  Guardar archivo
+
