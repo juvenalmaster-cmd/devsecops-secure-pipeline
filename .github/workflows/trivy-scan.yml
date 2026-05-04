@@ -2,8 +2,7 @@ name: DevSecOps Trivy Scan
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   trivy-scan:
@@ -13,14 +12,26 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Trivy
+      - name: Install Trivy (official script)
         run: |
           sudo apt-get update
           sudo apt-get install -y wget
-          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.1_Linux-64bit.deb || true
-          sudo dpkg -i trivy_*.deb || true
-          sudo apt-get install -f -y
+          wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
 
-      - name: Run Trivy Scan
+      # 🔎 Genera reporte (NO falla el job)
+      - name: Run Trivy (report JSON)
         run: |
-          trivy image --severity HIGH,CRITICAL bkimminich/juice-shop
+          mkdir -p reports
+          trivy image --format json -o reports/trivy-report.json bkimminich/juice-shop
+
+      # ⬆️ Sube el reporte como artifact
+      - name: Upload Trivy report
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-report
+          path: reports/trivy-report.json
+
+      # ❌ Falla el pipeline si hay HIGH/CRITICAL
+      - name: Enforce policy (fail on HIGH/CRITICAL)
+        run: |
+          trivy image --severity HIGH,CRITICAL --exit-code 1 bkimminich/juice-shop
