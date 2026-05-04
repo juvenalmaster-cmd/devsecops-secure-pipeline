@@ -12,26 +12,31 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install Trivy (official script)
+      # 🐳 Build de TU imagen
+      - name: Build Docker Image
+        run: |
+          docker build -t devsecops-app .
+
+      # 🔧 Instalar Trivy (script oficial)
+      - name: Install Trivy
         run: |
           sudo apt-get update
           sudo apt-get install -y wget
           wget -qO- https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh -s -- -b /usr/local/bin
 
-      # 🔎 Genera reporte (NO falla el job)
+      # 📄 Generar reporte (artifact)
       - name: Run Trivy (report JSON)
         run: |
           mkdir -p reports
-          trivy image --format json -o reports/trivy-report.json bkimminich/juice-shop
+          trivy image --format json -o reports/trivy-report.json devsecops-app
 
-      # ⬆️ Sube el reporte como artifact
       - name: Upload Trivy report
         uses: actions/upload-artifact@v4
         with:
           name: trivy-report
           path: reports/trivy-report.json
 
-      # ❌ Falla el pipeline si hay HIGH/CRITICAL
+      # ❌ Policy: fallar por HIGH/CRITICAL
       - name: Enforce policy (fail on HIGH/CRITICAL)
         run: |
-          trivy image --severity HIGH,CRITICAL --exit-code 1 bkimminich/juice-shop
+          trivy image --severity HIGH,CRITICAL --exit-code 1 devsecops-app
