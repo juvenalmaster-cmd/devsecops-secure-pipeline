@@ -1,24 +1,29 @@
-# devsecops-secure-pipeline
-DevSecOps pipeline with automated security scanning using Trivy and Docker
 # 🔐 DevSecOps Secure Pipeline
 
 ## 🎯 Objetivo
-Construir un pipeline DevSecOps con escaneo de vulnerabilidades automatizado.
+Implementar un pipeline CI/CD con controles de seguridad automatizados.
 
 ---
 
-## 🧱 Tecnologías
-- Docker
-- Trivy
-- GitHub Actions
+## 🧭 Arquitectura
+
+Developer → Docker → GitHub Actions → Trivy → Policy → Artifact
 
 ---
 
-## 📁 Estructura
+## 📦 Módulos
 
-- docs/
-- reports/
-- security/
+- Módulo 2: Trivy manual
+- Módulo 3: GitHub Actions
+- Módulo 4: Docker + Scan
+
+---
+
+## 🔗 Proyecto relacionado
+
+Este proyecto continúa desde:
+
+👉 devsecops-linux-lab
 - pipelines/
 
 ---
