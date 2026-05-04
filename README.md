@@ -28,5 +28,8 @@ Este proyecto continúa desde:
 
 ---
 
-## 🚀 Estado
-Proyecto en construcción 🚧
+## 🧱 Base del laboratorio
+
+Este proyecto se construye sobre:
+
+https://github.com/juvenalmaster-cmd/devsecops-linux-lab
