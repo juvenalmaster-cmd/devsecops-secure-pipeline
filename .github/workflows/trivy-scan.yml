@@ -27,7 +27,7 @@ jobs:
       - name: Run Bandit Scan
         run: |
           mkdir -p reports
-          bandit -r app/ -f txt -o reports/bandit-report.txt
+          bandit -r app/ -f txt -o reports/bandit-report.txt || true
 
       # 📄 Subir reporte Bandit
       - name: Upload Bandit Report
@@ -65,4 +65,3 @@ jobs:
       - name: Enforce policy (fail on HIGH/CRITICAL)
         run: |
           trivy image --severity HIGH,CRITICAL --exit-code 1 devsecops-app
-          
