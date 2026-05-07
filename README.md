@@ -24,14 +24,6 @@ Developer → Docker → GitHub Actions → Trivy → Policy → Artifact
 Este proyecto continúa desde:
 
 👉 devsecops-linux-lab
-
-
-
-## 🔗 Proyecto relacionado
-
-Este proyecto continúa desde:
-
-👉 devsecops-linux-lab
 - pipelines/
 
 
