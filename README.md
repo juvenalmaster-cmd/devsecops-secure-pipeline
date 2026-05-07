@@ -16,6 +16,7 @@ Developer → Docker → GitHub Actions → Trivy → Policy → Artifact
 - Módulo 2: Trivy manual
 - Módulo 3: GitHub Actions
 - Módulo 4: Docker + Scan
+- Módulo 5: Bandit + SAST Pipeline
 
 
 
